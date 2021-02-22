@@ -20,4 +20,14 @@ function Dog(){
 */
 
 let hound=new Dog();
-console.log(hound);
+
+// We can design a constructor to accept parametrs to make easier change the values of an object.
+
+function Dogparam(name,colour){
+    this.name_=name;
+    this.colour_=colour;
+    this.numLegs=4;
+}
+
+let terrier=new Dogparam("Copacetic","white");
+console.log(terrier);
