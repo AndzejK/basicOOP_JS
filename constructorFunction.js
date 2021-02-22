@@ -18,3 +18,6 @@ function Dog(){
     3# Constructors define properties and behaviors instead of returning a value as other functions
         might.
 */
+
+let hound=new Dog();
+console.log(hound);
