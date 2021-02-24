@@ -51,14 +51,14 @@ console.log(myHouse instanceof House);
     of this property.
 */
 
-let ownProps=[];
+let ownProps_=[];
 // Here we're looping through Object,syntex.
 for(let property_can_be_anythingHere in myHouse){
     if (myHouse.hasOwnProperty(property_can_be_anythingHere)){
-        ownProps.push(property_can_be_anythingHere)
+        ownProps_.push(property_can_be_anythingHere)
     }
 }
-console.log(ownProps);
+console.log(ownProps_);
 
 // ####  prototype Property
 /*
@@ -68,3 +68,46 @@ console.log(ownProps);
 */
 House.prototype.numBaths=2;
 console.log(newHouse.numBaths);
+
+/*
+It is important to emphasise the kind of properties:
+    * OWN properties - are defined directly on the object instance itself.
+    * PROTOTYPE properties - are defined on the prototype.
+*/
+
+/*
+    TASK 1# 
+    Add all of the own properties of beagle to the array 
+    ownProps. Add all of the prototype properties of Dog to 
+    the array prototypeProps.
+*/
+
+// TASK 1# Solution
+let ownProps = [];
+let prototypeProps = [];
+
+// the Constructor for Dog objects
+function Dog(name){
+    this.name=name;
+}
+//creating an object using the Dog Constructor 
+let beagle=new Dog("Poppy");
+Dog.prototype.numLegs=4; //adding property for Constructor, therefore it's PROTOTYPE property;
+
+for(let prop in beagle){
+    if(beagle.hasOwnProperty(prop)){
+        ownProps.push(prop);
+    } else{
+        prototypeProps.push(prop);
+    }
+}
+console.log(`I'm coming from "beagle" object: ${ownProps}. Therefore it's my own property`);
+console.log(`I'm coming from "Dog" constructor: ${prototypeProps}. Therefore it's PROTOTYPE property`);
+
+// we can add more properties straightaway by setting the protype to a new object
+Dog.prototype={
+    friendly:"yes",
+    intro:function(){
+        console.log(`My name is ${this.name}`);
+    }
+}
