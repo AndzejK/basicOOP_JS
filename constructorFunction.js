@@ -105,9 +105,30 @@ console.log(`I'm coming from "beagle" object: ${ownProps}. Therefore it's my own
 console.log(`I'm coming from "Dog" constructor: ${prototypeProps}. Therefore it's PROTOTYPE property`);
 
 // we can add more properties straightaway by setting the protype to a new object
+/*
 Dog.prototype={
     friendly:"yes",
     intro:function(){
         console.log(`My name is ${this.name}`);
     }
 }
+*/
+
+/*
+    ##! When setting the PROTOTYPE to a new object, what I did above, It erases 
+    the CONSTRUCTOR property!!!
+*/
+
+Dog.prototype={
+    constructor: Dog, // Defining the constructor property
+    friendly:"yes",
+    intro:function(){
+        console.log(`My name is ${this.name}`);
+    }
+}
+
+/*
+    ## A function's prototype ## : A function's prototype is the object instance that will become the prototype for all objects created using this function as a constructor
+    ## An object's prototype ## : An object prototype is the object instance from which the object is inherited.
+*/
+console.log(Object.prototype.isPrototypeOf(Dog.prototype))
