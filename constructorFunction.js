@@ -132,3 +132,66 @@ Dog.prototype={
     ## An object's prototype ## : An object prototype is the object instance from which the object is inherited.
 */
 console.log(Object.prototype.isPrototypeOf(Dog.prototype))
+
+/*
+    ##### the Prototype Chain
+source: www.freecodecamp.org
+    All objects in JavaScript (with a few exceptions) have a prototype. Also, 
+an object’s prototype itself is an object.
+    Because a prototype is an object, a prototype can have its own prototype! 
+In this case, the prototype of Bird.prototype is Object.prototype.
+    Therefore, if I recall the hasOwnProperty method, which is defined in Object.prototype, 
+which can be accessed by Bird.prototype, which can then be accessed by duck. This is an example 
+of the prototype chain. In this prototype chain, Bird is the supertype for duck, while duck is the subtype.
+Object is a supertype for both Bird and duck. Object is a supertype for all objects in JavaScript. 
+Therefore, any object can use the hasOwnProperty method.
+*/
+
+// ###### Using inheretance so you Don't Repeat Yourself (DRY)
+/*
+    Task #2:
+The eat method is repeated in both Cat and Bear. 
+Edit the code in the spirit of DRY by moving the eat method to the Animal supertype.
+*/
+
+function Cat(name){
+    this.name=name;
+}
+
+Cat.prototype={
+    constructor:Cat,
+    /*
+    eat:function(){
+        console.log("nom nom nom");    
+    }
+    */
+}
+
+function Bear(name){
+    this.name=name;
+}
+
+Bear.prototype={
+    constructor:Bear,
+    /*
+    eat:function(){
+        console.log("nom nom nom");
+    }
+    */
+}
+function Animal(){}
+Animal.prototype={
+    constructor:Animal,
+    eat:function(){
+        console.log("nom nom nom");
+    }    
+}
+
+//Another syntex for creting a new object;
+//let rotweiler = Object.create(Animal.prototype);
+Dog.prototype=Object.create(Animal.prototype);
+//console.log(rotweiler);
+let rotweiler=new Dog("Roy");
+
+//console.log(rotweiler.intro());
+console.log(rotweiler.eat());
