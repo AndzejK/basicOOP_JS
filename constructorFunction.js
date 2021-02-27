@@ -194,4 +194,66 @@ Dog.prototype=Object.create(Animal.prototype);
 let rotweiler=new Dog("Roy");
 
 //console.log(rotweiler.intro());
-console.log(rotweiler.eat());
+rotweiler.eat();
+
+// ###### Reset an Inherited Constructor Property
+function Bird(){}
+Bird.prototype=Object.create(Animal.prototype);
+let duck = new Bird();
+console.log(duck.constructor);
+//here we're resetin/setting up the original constructor Bird;
+Bird.prototype.constructor=Bird;
+console.log(duck.constructor);
+duck.eat();
+
+// Adding a method after inheritance
+Bird.prototype.fly=function(){
+    console.log('I can fly.');
+}
+duck.fly();
+
+/*
+    #### Reminder: How to inherit methods from another object by referencing its PROTOTYPE object
+ChildObject.prototype = Object.create(ParentObject.prototype);
+    #### Therefore, the ChildObject received its own methods by chaining them onto its prototype: 
+ChildObject.prototype.methodName = function() {...};
+*/
+
+// ####### Override Inherited Methods
+/*
+It's possible to override an inherited method. It's done the same way - 
+by adding a method to ChildObject.prototype using the same method name as the one to override. 
+*/
+Bird.prototype.eat=function(){
+    return console.log("peck peck peck");
+}
+
+let goose = new Bird();
+goose.eat();
+
+// ######## mixins
+/*
+    For unrelated objects, it's better to use mixins. 
+A mixin allows other objects to use a collection of functions.
+*/
+
+let flyMixin=function(obj){
+    obj.fly=function(){
+        console.log("Flying, wooosh!");
+    }
+}
+
+let bird = {
+    name:"Donald",
+    numLegs:2
+}
+
+let plane = {
+    name:"Vic-77",
+    numPassengers: 543
+}
+ flyMixin(bird);
+ flyMixin(plane);
+
+ console.log(bird);
+ console.log(plane);
