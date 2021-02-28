@@ -257,3 +257,76 @@ let plane = {
 
  console.log(bird);
  console.log(plane);
+
+ // ######### CLOSURE
+/* 
+In JavaScript, a function always has access to the context 
+in which it was created. This is called closure. 
+*/
+
+function Car(name){
+    let promo="123"; //pay attention to syntex, we have the variable and it finishes w\ semicolon ";"
+    this.name=name, //however, object's prop we seperate them by comma.
+    this.getPromo=function(){
+        return console.log(promo);
+    }
+}
+
+let audi=new Car("audi 100");
+console.log(audi.name);
+audi.getPromo();
+
+// ########## IIFE (Immediately Invoked (call) Function Expression)
+//Note that the function has no name and is not stored in a variable.
+(function(){ //this is an anonymous function expression that executes right away
+    console.log(`I'm an IIFE`)
+})();
+
+// ###########  Using an IIFE to Create a Module
+/*
+An immediately invoked function expression (IIFE) is often 
+used to group related functionality into a single object or module.
+*/
+
+//So instead of having two seperate objects/mixins in global window and it means they're gonna have different access in memory
+//we can combine/group these object/mixins into MODOLE;
+
+// 2 mixins
+    //#1
+function glideMixin_2(obj){
+    obj.glide=function(){
+        console.log("Gliding on the water");
+    };
+}
+    //#2
+function flyMixin_2(obj){
+    obj.fly=function(){
+        console.log("Flying, wooosh!");
+    };
+}
+/*
+However, we can group these mixins into a module as follows:
+even though glideMixin and flyMixin have been already declared we still can use the same 
+names in motionModule because of seperate scope, IIFE;
+*/
+let motionModule = (
+    function(){
+        //IIFE is going to return an object
+        return{
+            glideMixin:function(obj){
+                obj.glide=function(){
+                    console.log("Gliding on the water");
+                };
+            },
+            flyMixin:function(obj){
+                obj.fly=function(){
+                    console.log("Flying, wooosh!");
+                };
+            }
+        }
+    }
+)(); // The two parentheses cause the function to be immediately invoked
+
+// The way how can I use this module
+motionModule.glideMixin(duck);
+duck.glide();
